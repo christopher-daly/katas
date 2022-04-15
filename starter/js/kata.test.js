@@ -1,5 +1,5 @@
-const hello = require("./kata.js");
+import {helloWorld} from "./kata.js";
 
 test("the tests run", () => {
-  expect(hello()).toBe("hello world!");
+    expect(helloWorld()).toBe("hello world!");
 });

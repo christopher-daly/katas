@@ -1,3 +1,7 @@
-module.exports = function () {
+export const helloWorld = () => {
   return "hello world!";
+};
+
+export default {
+  helloWorld
 };
