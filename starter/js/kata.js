@@ -16,8 +16,3 @@ export const publish = (user, message) => {
     db[user] = [message];
   }
 };
-
-export default {
-  publish,
-  timeline
-};

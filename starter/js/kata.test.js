@@ -3,26 +3,29 @@ import {publish, timeline} from "./kata.js";
 
 const user = "Alice";
 
-test("timeline is empty before messages published", () => {
-    expect(timeline(user)).toEqual("");
-});
+describe("Timeline", () => {
+    beforeEach(clearDB);
 
-test("publish saves message to timeline", () => {
-    const message = "I love the weather today.";
+    test("is empty before messages published", () => {
+        expect(timeline(user)).toEqual("");
+    });
 
-    publish(user, message);
+    test("displays published messages", () => {
+        const message = "I love the weather today.";
 
-    expect(timeline(user)).toEqual(message);
-});
+        publish(user, message);
 
-test("timeline shows most recent messages first", () => {
-    clearDB();
-    const oldMessage = "I love the weather on Mondays.",
-        newMessage = "I love the weather on Wednesdays.",
-        expectedMessage = `${newMessage}\n${oldMessage}`;
+        expect(timeline(user)).toEqual(message);
+    });
 
-    publish(user, oldMessage);
-    publish(user, newMessage);
+    test("shows most recent messages first", () => {
+        const oldMessage = "I love the weather on Mondays.",
+            newMessage = "I love the weather on Wednesdays.",
+            expectedMessage = `${newMessage}\n${oldMessage}`;
 
-    expect(timeline(user)).toEqual(expectedMessage);
+        publish(user, oldMessage);
+        publish(user, newMessage);
+
+        expect(timeline(user)).toEqual(expectedMessage);
+    });
 });
