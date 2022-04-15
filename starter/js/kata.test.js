@@ -1,3 +1,4 @@
+import {clearDB} from "./db";
 import {publish, timeline} from "./kata.js";
 
 const user = "Alice";
@@ -12,4 +13,16 @@ test("publish saves message to timeline", () => {
     publish(user, message);
 
     expect(timeline(user)).toEqual(message);
+});
+
+test("timeline shows most recent messages first", () => {
+    clearDB();
+    const oldMessage = "I love the weather on Mondays.",
+        newMessage = "I love the weather on Wednesdays.",
+        expectedMessage = `${newMessage}\n${oldMessage}`;
+
+    publish(user, oldMessage);
+    publish(user, newMessage);
+
+    expect(timeline(user)).toEqual(expectedMessage);
 });
