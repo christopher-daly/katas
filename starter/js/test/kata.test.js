@@ -1,6 +1,6 @@
 import {jest} from '@jest/globals';
-import {clearDB} from "./db";
-import {publish, timeline} from "./kata.js";
+import {clearDB} from "../src/db";
+import {publish, timeline} from "../src/kata.js";
 import luxon from 'luxon';
 
 const {DateTime} = luxon;
