@@ -4,17 +4,14 @@ import luxon from 'luxon';
 
 const {DateTime} = luxon;
 
-export const timeline = (requestingUser, timelineOwner = requestingUser) => {
-    const entries = db[timelineOwner];
+const messagesWithoutTimestamp = (entries) => entries.map((entry) => entry.message);
+const messagesWithTimestamp = (entries) => entries.map((entry) => `${entry.message} (${entry.date.toRelative()})`);
 
-    if (entries) {
-        if (requestingUser === timelineOwner) {
-            return entries.map((entry) => entry.message).join("\n");
-        } else {
-            return entries.map((entry) => `${entry.message} (${entry.date.toRelative()})`).join("\n");
-        }
-    }
-    return "";
+export const timeline = (requestingUser, timelineOwner = requestingUser) => {
+    const entries = db[timelineOwner] || [];
+
+    const messages = requestingUser === timelineOwner ? messagesWithoutTimestamp(entries) : messagesWithTimestamp(entries);
+    return messages.join("\n");
 };
 
 export const publish = (user, message) => {
