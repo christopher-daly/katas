@@ -1,10 +1,15 @@
+import {jest} from '@jest/globals';
 import {clearDB} from "./db";
 import {publish, timeline} from "./kata.js";
+import luxon from 'luxon';
+
+const {DateTime} = luxon;
 
 const user = "Alice";
 
 describe("Timeline", () => {
     beforeEach(clearDB);
+    afterEach(jest.useRealTimers);
 
     test("is empty before messages published", () => {
         expect(timeline(user)).toEqual("");
@@ -27,5 +32,17 @@ describe("Timeline", () => {
         publish(user, newMessage);
 
         expect(timeline(user)).toEqual(expectedMessage);
+    });
+
+    test("shows elapsed time since post on other user's timelines", () => {
+        const otherUser = "Bob",
+            message = "Darn! We lost!";
+
+        jest.useFakeTimers('modern');
+        jest.setSystemTime(DateTime.now().minus({minutes: 2}).toMillis());
+        publish(otherUser, message);
+        jest.useRealTimers();
+
+        expect(timeline(user, otherUser)).toEqual("Darn! We lost! (2 minutes ago)");
     });
 });
