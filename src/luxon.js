@@ -16,25 +16,6 @@ const HOURS = {
     factor: 60,
     label: "hour"
 };
-// const unitOfTime = (seconds) => {
-//     const units = [MINUTES, HOURS];
-//     let retVal = seconds,
-//         label = "second";
-//     units.forEach((unit) => {
-//         if (retVal < unit.factor) {
-//             return {
-//                 value: retVal,
-//                 label
-//             }
-//         }
-//         retVal = Math.floor(retVal / unit.factor);
-//         label = unit.label;
-//     })
-//     return {
-//         value: retVal,
-//         label
-//     }
-// };
 
 const instructions = (payload) => {
     if (payload.units.length === 0) {
@@ -71,7 +52,6 @@ const toRelative = (date) => {
     }
     const {currentValue} = pipeline(instructions)(payload);
     const {value, label} = currentValue;
-    // const {value, label} = unitOfTime(diffInSeconds);
 
     return `${value} ${pluralize(label, value)} ago`;
 };

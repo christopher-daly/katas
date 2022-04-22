@@ -2,9 +2,9 @@ import {jest} from '@jest/globals';
 import {clearDB} from "../src/db";
 import {publish, timeline} from "../src/kata.js";
 import luxon from 'luxon';
+import {resetNow} from "../src/luxon";
 
 const {DateTime} = luxon;
-import {resetNow} from "../src/luxon";
 
 const user = "Alice";
 
@@ -134,6 +134,4 @@ describe("Timeline", () => {
 
         expect(timeline(user, otherUser)).toEqual("Darn! We lost! (2 hours ago)");
     });
-
-
 });
