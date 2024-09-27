@@ -1,0 +1,20 @@
+{
+  "name": "kata",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
+    "format": "prettier --write ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.0.1",
+    "luxon": "^2.3.1"
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
+  }
+}
